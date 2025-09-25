@@ -70,11 +70,20 @@ suite('Functional Tests with Zombie.js', function () {
 
   suite('"Famous Italian Explorers" form', function () {
     // #5
-    test('Submit the surname "Colombo" in the HTML form', function (done) {
-      assert.fail();
+   test('Submit the surname "Colombo" in the HTML form', function (done) {
+  browser.fill('surname', 'Colombo').pressButton('submit', function() {
+    // assert that status is OK 200
+    browser.assert.success();
+    // assert that the text inside the element 'span#name' is 'Cristoforo'
+    browser.assert.text('span#name', 'Cristoforo');
+    // assert that the text inside the element 'span#surname' is 'Colombo'
+    browser.assert.text('span#surname', 'Colombo');
+    // assert that the element(s) 'span#dates' exist and their count is 1
+    browser.assert.element('span#dates', 1);
 
-      done();
-    });
+    done();
+  });
+});
     // #6
     test('Submit the surname "Vespucci" in the HTML form', function (done) {
       assert.fail();
